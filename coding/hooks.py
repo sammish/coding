@@ -172,6 +172,21 @@ user_data_fields = [
 	}
 ]
 
+fixtures = [
+	{
+		"doctype": "Custom Field",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Sales Invoice-invoice_month",
+				]
+			]
+		]
+	},
+]
+
 # Authentication and authorization
 # --------------------------------
 
