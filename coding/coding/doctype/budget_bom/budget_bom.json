@@ -1,0 +1,316 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-05-28 16:41:23.363465",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "status",
+  "column_break_2",
+  "sellable_product_category",
+  "column_break_4",
+  "sellable_product",
+  "column_break_6",
+  "opportunity",
+  "section_break_701",
+  "customer",
+  "column_break_10",
+  "customer_name",
+  "section_break_12",
+  "posting_date",
+  "expected_closing_date",
+  "rate_of_materials_based_on",
+  "price_list",
+  "electrical_bom_semi_finished_good_section",
+  "column_break_14",
+  "is_subcontracting_semi_finished_good",
+  "column_break_15",
+  "enable__electrical_bom_for_the_estimation",
+  "section_break_16",
+  "electrical_item_code",
+  "column_break_17",
+  "electrical_item_name",
+  "column_break_19",
+  "uom",
+  "column_break_21",
+  "qty",
+  "electrical_bom_operation_and_workstation_section",
+  "routing",
+  "column_break_27",
+  "enable_operation_for_electrical_bom",
+  "section_break_29",
+  "electrical_bom_operation_and_workstation",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nPending\nTo Quotation\nTo Sales Order\nCompleted"
+  },
+  {
+   "fieldname": "sellable_product_category",
+   "fieldtype": "Link",
+   "label": "Sellable Product Category",
+   "options": "Sellable Product Category",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval: doc.sellable_product_category",
+   "fieldname": "sellable_product",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sellable Product",
+   "options": "Sellable Product",
+   "reqd": 1
+  },
+  {
+   "fieldname": "opportunity",
+   "fieldtype": "Link",
+   "label": "Opportunity",
+   "options": "Opportunity"
+  },
+  {
+   "fetch_from": "opportunity.party_name",
+   "fetch_if_empty": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_closing_date",
+   "fieldtype": "Date",
+   "label": "Expected Closing Date",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Price List",
+   "fieldname": "rate_of_materials_based_on",
+   "fieldtype": "Select",
+   "label": "Rate of Materials Based On",
+   "options": "Last Purchase Rate\nValuation Rate\nPrice List"
+  },
+  {
+   "default": "Standard Buying",
+   "depends_on": "eval:doc.rate_of_materials_based_on == \"Price List\"",
+   "fieldname": "price_list",
+   "fieldtype": "Select",
+   "label": "Price List",
+   "options": "Standard Buying\nStandard Selling"
+  },
+  {
+   "fieldname": "electrical_bom_semi_finished_good_section",
+   "fieldtype": "Section Break",
+   "label": "Electrical BOM Semi Finished Good"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable__electrical_bom_for_the_estimation",
+   "fieldtype": "Check",
+   "label": "Enable  Electrical BOM for the Estimation"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_subcontracting_semi_finished_good",
+   "fieldtype": "Check",
+   "label": "Is Subcontracting Semi Finished Good"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.enable__electrical_bom_for_the_estimation",
+   "fetch_from": "electrical_item_code.stock_uom",
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval: doc.enable__electrical_bom_for_the_estimation",
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.enable__electrical_bom_for_the_estimation",
+   "fieldname": "electrical_item_code",
+   "fieldtype": "Link",
+   "label": "Electrical Item Code",
+   "mandatory_depends_on": "eval: doc.is_subcontracting",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval: doc.enable__electrical_bom_for_the_estimation",
+   "fetch_from": "electrical_item_code.item_name",
+   "fetch_if_empty": 1,
+   "fieldname": "electrical_item_name",
+   "fieldtype": "Data",
+   "label": "Electrical Item Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "electrical_bom_operation_and_workstation_section",
+   "fieldtype": "Section Break",
+   "label": "Electrical BOM Operation and Workstation"
+  },
+  {
+   "depends_on": "eval: doc.enable_operation_for_electrical_bom",
+   "fieldname": "routing",
+   "fieldtype": "Link",
+   "label": "Routing",
+   "options": "Routing"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_operation_for_electrical_bom",
+   "fieldtype": "Check",
+   "label": "Enable Operation for Electrical BOM"
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.enable_operation_for_electrical_bom",
+   "fieldname": "electrical_bom_operation_and_workstation",
+   "fieldtype": "Table",
+   "label": "Electrical BOM Operation and Workstation",
+   "options": "Electrical BOM Operation and Workstation"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Budget BOM",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_701",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-05-29 18:07:41.590886",
+ "modified_by": "Administrator",
+ "module": "Coding",
+ "name": "Budget BOM",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
